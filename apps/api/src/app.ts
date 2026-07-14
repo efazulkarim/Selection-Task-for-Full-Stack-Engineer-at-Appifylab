@@ -46,9 +46,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(requireCsrf);
 
 const authLimiter = rateLimit({ windowMs: 15 * 60 * 1000, limit: 50, standardHeaders: true, legacyHeaders: false });
-const uploadLimiter = rateLimit({ windowMs: 15 * 60 * 1000, limit: 30, standardHeaders: true, legacyHeaders: false });
 app.use("/api/auth", authLimiter, authRouter);
-app.use("/api/posts", uploadLimiter);
 app.use("/api", postRouter);
 app.use("/api", commentRouter);
 app.use("/api", userRouter);
