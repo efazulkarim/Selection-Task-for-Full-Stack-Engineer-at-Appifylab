@@ -189,4 +189,37 @@ test.describe("Appifylab Social Feed App", () => {
     await contextA.close();
     await contextB.close();
   });
+
+  test("5. Post Creation with Image Upload", async ({ page }) => {
+    await page.goto("/login");
+    await page.fill("#input-email", emailA);
+    await page.fill("#input-password", password);
+    await page.click("button[type='submit']:has-text('Login now')");
+    await page.waitForURL("**/feed");
+
+    const postText = `Post with Image - ${Date.now()}`;
+    await page.fill("#floatingTextarea", postText);
+
+    // Upload man.png test image
+    await page.setInputFiles("input[type='file']", "assets/images/man.png");
+
+    // Click post button
+    await page.click("button:has-text('Post')");
+
+    // Wait for post creation to be complete (textbox cleared)
+    await expect(page.locator("#floatingTextarea")).toHaveValue("");
+
+    // Verify post is visible in feed
+    const postCard = page.locator(`div._feed_inner_timeline_post_area:has-text('${postText}')`);
+    await expect(postCard).toBeVisible();
+
+    // Verify image element is visible inside this post card
+    const postImage = postCard.locator("img._time_img");
+    await expect(postImage).toBeVisible();
+    
+    // Check that src attribute has a valid URL
+    const src = await postImage.getAttribute("src");
+    expect(src).not.toBeNull();
+    expect(src).toContain("http");
+  });
 });
