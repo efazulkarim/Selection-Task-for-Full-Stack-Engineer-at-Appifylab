@@ -149,11 +149,11 @@ test.describe("Appifylab Social Feed App", () => {
 
     // Bob likes the comment he just posted
     const commentItem = publicPostCard.locator("div._comment_main", { hasText: "Bob's cool comment" });
-    const commentLikeButton = commentItem.locator("span:has-text('Like')").first();
+    const commentLikeButton = commentItem.locator("button:has-text('Like')").first();
     await commentLikeButton.click();
 
     // Verify comment like count updated
-    await expect(commentItem.locator("div._total_reactions")).toContainText("1");
+    await expect(commentItem.locator("._total_reactions")).toContainText("1");
 
     // Alice (User A) reloads and replies to Bob's comment
     await pageA.reload();
@@ -163,7 +163,7 @@ test.describe("Appifylab Social Feed App", () => {
     await alicePublicPostCard.locator("button._feed_inner_timeline_reaction_comment").click();
     
     const aliceCommentItem = alicePublicPostCard.locator("div._comment_main", { hasText: "Bob's cool comment" });
-    await aliceCommentItem.locator("span:has-text('Reply')").click(); // open reply input
+    await aliceCommentItem.locator("button:has-text('Reply')").click(); // open reply input
     
     const replyInput = aliceCommentItem.locator("textarea[placeholder='Write a reply...']");
     await replyInput.fill("Alice's nested reply");
