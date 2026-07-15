@@ -56,6 +56,7 @@ export default function LoginPage() {
         type="button" 
         variant="google"
         onClick={handleGoogleLogin}
+        fullWidth
       >
         <img src="/assets/images/google.svg" alt="Google" className="_google_img" /> 
         <span>Or sign-in with google</span>

@@ -968,4 +968,23 @@
         right: -50px;
     }
 }
-  
+
+/* Custom Responsiveness Fixes */
+@media (max-width: 991px) {
+    ._social_login_content,
+    ._social_registration_content {
+        padding: 30px 24px !important;
+        margin: 0 auto;
+    }
+}
+
+@media (max-width: 575px) {
+    ._social_login_content,
+    ._social_registration_content {
+        padding: 24px 16px !important;
+    }
+    ._social_login_content_btn,
+    ._social_registration_content_btn {
+        padding: 12px 20px !important;
+    }
+}

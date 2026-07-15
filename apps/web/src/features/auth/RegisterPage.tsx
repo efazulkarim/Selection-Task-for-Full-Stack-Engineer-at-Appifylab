@@ -80,6 +80,7 @@ export default function RegisterPage() {
         type="button" 
         variant="google"
         onClick={handleGoogleRegister}
+        fullWidth
       >
         <img src="/assets/images/google.svg" alt="Google" className="_google_img" /> 
         <span>Register with google</span>

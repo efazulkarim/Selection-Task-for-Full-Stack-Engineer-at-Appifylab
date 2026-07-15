@@ -32,7 +32,7 @@ export default function AuthLayout({ children, illustrationType }: AuthLayoutPro
         <div className="container">
           <div className="row align-items-center">
             {/* Left side illustration */}
-            <div className="col-xl-8 col-lg-8 col-md-12 col-sm-12">
+            <div className="col-xl-8 col-lg-8 d-none d-lg-block">
               {isLogin ? (
                 <div className="_social_login_left">
                   <div className="_social_login_left_image">
@@ -52,7 +52,7 @@ export default function AuthLayout({ children, illustrationType }: AuthLayoutPro
             </div>
 
             {/* Right side form content */}
-            <div className="col-xl-4 col-lg-4 col-md-12 col-sm-12">
+            <div className="col-xl-4 col-lg-4 col-md-8 col-sm-10 col-12 mx-auto">
               <div className={isLogin ? "_social_login_content" : "_social_registration_content"}>
                 <div className={`${isLogin ? "_social_login_left_logo" : "_social_registration_right_logo"} _mar_b28`}>
                   <img src="/assets/images/logo.svg" alt="Logo" className={isLogin ? "_left_logo" : "_right_logo"} />
