@@ -35,6 +35,42 @@ export default function LikedUsersModal() {
   const likes = isPost ? postLikes : commentLikes;
   const isLoading = isPost ? loadingPostLikes : loadingCommentLikes;
 
+  let modalContent;
+  if (isLoading) {
+    modalContent = (
+      <div className="d-flex justify-content-center p-4">
+        <div className="spinner-border text-primary" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+      </div>
+    );
+  } else if (!likes || likes.length === 0) {
+    modalContent = (
+      <div className="text-center text-muted py-4">No likes yet.</div>
+    );
+  } else {
+    modalContent = (
+      <div className="d-flex flex-column gap-3">
+        {likes.map((user) => (
+          <div key={user.id} className="d-flex align-items-center justify-content-between p-1">
+            <div className="d-flex align-items-center">
+              <img 
+                src={user.avatarUrl || "/assets/images/people1.png"} 
+                alt={user.firstName}
+                className="rounded-circle me-3"
+                style={{ width: "40px", height: "40px", objectFit: "cover" }}
+              />
+              <div>
+                <h6 className="mb-0 fw-semibold">{user.firstName} {user.lastName}</h6>
+                <span className="text-muted fs-7">{user.email}</span>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  }
+
   return (
     <dialog 
       ref={dialogRef}
@@ -54,34 +90,7 @@ export default function LikedUsersModal() {
             ></button>
           </div>
           <div className="modal-body" style={{ maxHeight: "300px", overflowY: "auto" }}>
-            {isLoading ? (
-              <div className="d-flex justify-content-center p-4">
-                <div className="spinner-border text-primary" role="status">
-                  <span className="visually-hidden">Loading...</span>
-                </div>
-              </div>
-            ) : !likes || likes.length === 0 ? (
-              <div className="text-center text-muted py-4">No likes yet.</div>
-            ) : (
-              <div className="d-flex flex-column gap-3">
-                {likes.map((user) => (
-                  <div key={user.id} className="d-flex align-items-center justify-content-between p-1">
-                    <div className="d-flex align-items-center">
-                      <img 
-                        src={user.avatarUrl || "/assets/images/people1.png"} 
-                        alt={user.firstName}
-                        className="rounded-circle me-3"
-                        style={{ width: "40px", height: "40px", objectFit: "cover" }}
-                      />
-                      <div>
-                        <h6 className="mb-0 fw-semibold">{user.firstName} {user.lastName}</h6>
-                        <span className="text-muted fs-7">{user.email}</span>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
+            {modalContent}
           </div>
         </div>
       </div>
